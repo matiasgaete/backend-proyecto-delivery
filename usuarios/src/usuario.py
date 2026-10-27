@@ -2,9 +2,13 @@ from sqlalchemy import Integer, String
 from sqlalchemy import DateTime, func
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
-class Usuario():
+
+class Base(DeclarativeBase):
+    pass
+
+class Usuario(Base):
     # nombre de la tabla de la bd a la q corresponde
-    __tablename__ = "usuario"
+    __tablename__ = "usuarios"
 
     id = mapped_column(Integer, primary_key=True, autoincrement=True)
     nombre = mapped_column(String(100), nullable=False)
