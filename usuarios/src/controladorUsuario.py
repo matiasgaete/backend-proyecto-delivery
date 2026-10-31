@@ -24,7 +24,6 @@ def crear_usuario_controller(user: crearUsuarioDTO):
 def consultar_usuario_controller(correo: EmailStr, rut: str):
     consultar_usuario_service(correo, rut)
 
-
 @router.put("/cambiar-pass")
 def cambiar_pass_controler(credenciales: cambiarPassDTO):
     cambiar_pass_service(credenciales)
