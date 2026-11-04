@@ -11,7 +11,6 @@ class buscarLocalesDTO(BaseModel):
     radio: float
 
 @router.get("/locales")
-def buscar_locales_controller(area: buscarLocalesDTO):
-    sR.buscar_locales_service(area)
+def calcular_rentabilidad_controller(area: buscarLocalesDTO):
+    sR.calcular_rentabilidad_service(area)
 
-    
