@@ -1,6 +1,6 @@
 from bd import config
 from usuario import Usuario
-from sqlalchemy import select, or_, update
+from sqlalchemy import select, and_, update
 
 def crear_usuario_repo(user):
     with config() as session:
@@ -15,12 +15,12 @@ def crear_usuario_repo(user):
         session.commit()
     return
 
-def consultar_usuario_repo(correo, rut):
+def inicar_sesion_repo(credenciales):
     with config() as session:
         query = select(Usuario).where(
-            or_(
-                correo == Usuario.correo,
-                rut == Usuario.rut
+            and_(
+                credenciales.correo == Usuario.correo,
+                credenciales.password == Usuario.password_hash
                 )
             )
         resultado = session.scalars(query)
@@ -34,7 +34,16 @@ def cambiar_pass_repo(credenciales):
             .values(password_hash=credenciales.new_pass)
             )
 
-        resultado = session.execute(query)
+        session.execute(query)
         session.commit()
         return
+
+def solicitar_cambio_repo(email):
+    with config() as session:
+        query = select(Usuario).where(
+            Usuario.correo == email
+            )
+        
+        resultado = session.scalars(query)
+        return resultado.one_or_none()
     
