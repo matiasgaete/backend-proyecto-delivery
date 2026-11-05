@@ -1,5 +1,5 @@
-from sqlalchemy import create_engine, text
-from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 url = "postgresql://postgres:Matiasgaete1@localhost:5432/proyectoDelivery"
 engine = create_engine(url)
