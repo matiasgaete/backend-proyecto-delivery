@@ -1,0 +1,32 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Contratos Usuarios",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "ruta": {
+        "verb http": {
+            "descripcion":,
+            "paramteros":,
+            "entradas":,
+            "respuestas": {
+                "respuestas1":,
+                "respuestas2":
+            }
+        }
+    }
+  }
+
+}
+CONTRATO JSON (Microservicio)
+├── Info / Metadatos (Nombre, versión)
+└── Rutas ("paths")
+    └── Ruta específica (Ej: /api/v1/productos)
+        └── Verbo HTTP (Ej: GET, POST)
+            ├── Descripción / Summary
+            ├── Parámetros (Path Params / Query Params)
+            ├── Entradas (Request Body)
+            └── Respuestas (Responses)
+                ├── 2xx (Éxito)
+                └── 4xx/5xx (Errores)
