@@ -4,7 +4,7 @@ from sqlalchemy import select, and_, update
 
 def crear_usuario_repo(user):
     with config() as session:
-        # Usuario(nombre_atributo_clase=1"valor", nombre_atributo_clase2="valor")
+        # Usuario(nombre_atributo_clase1="valor", nombre_atributo_clase2="valor")
         nuevo_usuario = Usuario(nombre=user.nombre,
                                 apellido=user.apellido,
                                 rut=user.rut,
