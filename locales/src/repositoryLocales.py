@@ -16,3 +16,4 @@ def consultar_locales_repo(radio, long, lat):
         )
         #retorna lista con objetos Local
         locales = session.scalars(query).all()
+        return locales
