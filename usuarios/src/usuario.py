@@ -14,6 +14,6 @@ class Usuario(Base):
     apellido = mapped_column(String(100), nullable=False)
     rut = mapped_column(String(12), unique=True, nullable=False)
     correo = mapped_column(String(150), unique=True, nullable=False)
-    password_hash = mapped_column(String(255), nullable=False)
+    pass_user = mapped_column(String(255), nullable=False)
     creado_en = mapped_column(DateTime, server_default=func.now())
         
