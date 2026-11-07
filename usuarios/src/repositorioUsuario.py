@@ -9,7 +9,7 @@ def crear_usuario_repo(user):
                                 apellido=user.apellido,
                                 rut=user.rut,
                                 correo=user.correo,
-                                password_hash=user.password)
+                                pass_user=user.password)
         
         session.add(nuevo_usuario)
         session.commit()
@@ -20,7 +20,7 @@ def inicar_sesion_repo(credenciales):
         query = select(Usuario).where(
             and_(
                 credenciales.correo == Usuario.correo,
-                credenciales.password == Usuario.password_hash
+                credenciales.password == Usuario.pass_user
                 )
             )
         resultado = session.scalars(query)
@@ -31,12 +31,16 @@ def cambiar_pass_repo(credenciales):
         query = (
             update(Usuario)
             .where(credenciales.correo == Usuario.correo)
-            .values(password_hash=credenciales.new_pass)
+            .values(pass_user=credenciales.new_pass)
             )
 
-        session.execute(query)
+        result = session.execute(query)
         session.commit()
-        return
+
+        if result.rowcount == 0:
+            return False  # O lanzar una excepción personalizada (ej. UsuarioNoEncontradoError)
+            
+        return True
 
 def solicitar_cambio_repo(email):
     with config() as session:

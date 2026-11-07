@@ -1,5 +1,4 @@
-INSERT INTO public.usuarios (nombre, apellido, rut, correo, password_hash) VALUES
-('Matías', 'Gaete', '19.876.543-2', 'matias.gaete@example.com', '$2b$12$e8N3vU9X7uK0123456789uK0123456789uK0123456789uK012345'),
+INSERT INTO public.usuarios (nombre, apellido, rut, correo, pass_user) VALUES
 ('Camila', 'Silva', '20.123.456-7', 'camila.silva@example.com', '$2b$12$e8N3vU9X7uK0123456789uK0123456789uK0123456789uK012345'),
 ('Benjamín', 'Rojas', '18.765.432-1', 'benjamin.rojas@example.com', '$2b$12$e8N3vU9X7uK0123456789uK0123456789uK0123456789uK012345'),
 ('Valentina', 'Morales', '21.345.678-K', 'valentina.morales@example.com', '$2b$12$e8N3vU9X7uK0123456789uK0123456789uK0123456789uK012345'),

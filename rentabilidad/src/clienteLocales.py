@@ -4,7 +4,7 @@ import httpx
 async def consultar_locales(lat, long, radio):
     async with httpx.AsyncClient() as client:
         respuesta_locales = await client.get(
-            "http://localhost:8000/locales/consultar-locales",
+            "http://localhost:8001/locales/consultar-locales",
             params={
                 "radio": radio,
                 "long": long,

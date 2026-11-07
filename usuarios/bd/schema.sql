@@ -4,6 +4,6 @@ CREATE TABLE usuarios (
     apellido VARCHAR(100) NOT NULL,
     rut VARCHAR(12) UNIQUE NOT NULL,
     correo VARCHAR(150) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
+    pass_user VARCHAR(255) NOT NULL,
     creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
