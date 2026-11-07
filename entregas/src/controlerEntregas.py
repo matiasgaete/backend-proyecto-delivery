@@ -1,14 +1,14 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Query
 from datetime import datetime
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from serviceEntregas import *
 
 router = APIRouter(prefix="/entregas")
 
 class getEntregasDTO(BaseModel):
-    id_local: int
+    ids_locales: list[int] = Field(Query(...))
     hora_peticion: datetime 
 
 @router.get("/entregas-id")
 def get_entregas_controller(condiciones: getEntregasDTO = Depends()):
-    get_entregas_service(condiciones)
+    return get_entregas_service(condiciones)
