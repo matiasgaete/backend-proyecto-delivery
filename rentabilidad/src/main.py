@@ -1,5 +1,5 @@
-from fastapi import FastApi
+from fastapi import FastAPI
 from controladorRentabilidad import router
 
-app = FastApi()
+app = FastAPI()
 app.include_router(router)

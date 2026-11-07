@@ -1,21 +1,26 @@
 import httpx
 import clienteEntregas as clE
 import clienteLocales as clL
+from rentabilidades import *
 
+async def calcular_rentabilidad_service(lat, long, radio):
+    locales = await clL.consultar_locales(lat, long, radio)
+    obj_rentabilidades = []
+    for local in locales["items"]:
+        obj = Rentabilidad(local["id"], local["nombre"])
+        obj_rentabilidades.append({local["id"]: obj})
 
-def calcular_rentabilidad_service(area):
-    locales = clL.consultar_locales()
-    entregas = clE.consultar_entregas()
-
-    # como contrato se recibira un json, por tanto.json() devulve diccionario
+    entregas = await clE.consultar_entregas(id_locales)
     
-    lista_locales = locales.json()
-    id_locales = dic_locales["id"]
-    for registro in lista_locales:
-        registro["id"]
+    for id in id_locales:
+        for entrega in entregas["items"]:
+            if id == entrega["id"]:
+                rentabilidad.append(
+                    {
 
-    respuesta_entregas = httpx.AsyncClent.get("url")
-    dic_entregas = respuesta_entregas.json()
-    id = dic_entregas["id"]
-    rentabilidad_promedio = dic_entregas["promedio"]
+                    }
+                )
+
+
+        
     
