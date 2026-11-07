@@ -11,5 +11,4 @@ async def consultar_locales(lat, long, radio):
                 "lat": lat
             }
         )
-        
         return respuesta_locales.json()
