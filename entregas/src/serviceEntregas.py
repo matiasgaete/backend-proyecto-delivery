@@ -8,7 +8,7 @@ def get_entregas_service(condiciones):
         rango_horario = (entrega.hora_entrega - entrega.hora_aceptacion) / 60
         resultados_json["items"].append(
             {
-                "id": entrega.id,
+                "id": entrega.id_local,
                 "rango_horario": rango_horario,
                 "monto": entrega.monto
             }
