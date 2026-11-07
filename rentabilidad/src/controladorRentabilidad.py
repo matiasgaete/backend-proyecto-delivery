@@ -11,6 +11,6 @@ class buscarLocalesDTO(BaseModel):
     radio: float
 
 @router.get("/locales")
-def calcular_rentabilidad_controller(area: buscarLocalesDTO):
-    sR.calcular_rentabilidad_service(area)
+async def calcular_rentabilidad_controller(lat: float, long: float, radio: float):
+    await sR.calcular_rentabilidad_service(lat, long, radio)
 
