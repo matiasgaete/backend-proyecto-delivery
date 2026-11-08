@@ -19,7 +19,7 @@ def get_entregas_service(condiciones):
 
 def agregar_entrega_service(entrega):
     try:
-        entrega_creada = agregar_entrega_repo(entrega)
+        agregar_entrega_repo(entrega)
         return {"message": "Entrega registrada con exito"}
     except SQLAlchemyError:
         raise HTTPException(
