@@ -1,4 +1,6 @@
 from repositoryEntregas import *
+from sqlalchemy.exc import SQLAlchemyError
+from fastapi import HTTPException, status
 
 
 def get_entregas_service(condiciones):
@@ -14,4 +16,15 @@ def get_entregas_service(condiciones):
             }
         )
     return resultados_json
+
+def agregar_entrega_service(entrega):
+    try:
+        entrega_creada = agregar_entrega_repo(entrega)
+        return {"message": "Entrega registrada con exito"}
+    except SQLAlchemyError:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Error el registrar la entrega"
+        )
+
 
