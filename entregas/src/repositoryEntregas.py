@@ -19,3 +19,19 @@ def get_entregas_repo(condiciones):
 
         entregas = session.scalars(query).all()
         return entregas
+
+def agregar_entrega_repo(entrega):
+    with config() as session:
+        new_entrega = Entrega(
+            hora_aceptacion=entrega.hora_aceptacion,
+            hora_recogida=entrega.hora_recogida,
+            hora_entrega=entrega.hora_entrega,
+            monto=entrega.monto,
+            id_local=entrega.id_local,
+            app=entrega.app
+        )
+
+        session.add(new_entrega)
+        session.commit()
+    return
+    
