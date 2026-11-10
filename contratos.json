@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "info": {
+    "title": "Especificación Oficial de Contratos JSON - Sistema Delivery",
+    "version": "1.0.0",
+    "gateway_base_url": "http://localhost:8000/gateway"
+  },
+  "microservicios": {
+    "usuarios": {
+      "puerto_interno": 8005,
+      "prefijo": "/usuarios",
+      "contratos": [
+        {
+          "endpoint": "/gateway/usuarios/crear-usuario",
+          "ruta_interna": "/usuarios/crear-usuario",
+          "metodo": "POST",
+          "request": {
+            "headers": { "Content-Type": "application/json" },
+            "body_dto": "crearUsuarioDTO",
+            "schema": {
+              "type": "object",
+              "required": ["nombre", "apellido", "rut", "correo", "password"],
+              "properties": {
+                "nombre": { "type": "string" },
+                "apellido": { "type": "string" },
+                "rut": { "type": "string" },
+                "correo": { "type": "string", "format": "email" },
+                "password": { "type": "string", "format": "password" }
+              }
+            }
+          }
+        },
+        {
+          "endpoint": "/gateway/usuarios/iniciar-sesion",
+          "ruta_interna": "/usuarios/iniciar-sesion",
+          "metodo": "POST",
+          "request": {
+            "headers": { "Content-Type": "application/json" },
+            "body_dto": "iniciarSesionDTO",
+            "schema": {
+              "type": "object",
+              "required": ["correo", "password"],
+              "properties": {
+                "correo": { "type": "string", "format": "email" },
+                "password": { "type": "string", "format": "password" }
+              }
+            }
+          }
+        },
+        {
+          "endpoint": "/gateway/usuarios/solicitar-cambio",
+          "ruta_interna": "/usuarios/solicitar-cambio",
+          "metodo": "GET",
+          "request": {
+            "query_parameters": {
+              "email": { "type": "string", "format": "email", "required": true }
+            }
+          }
+        },
+        {
+          "endpoint": "/gateway/usuarios/cambiar-pass",
+          "ruta_interna": "/usuarios/cambiar-pass",
+          "metodo": "PUT",
+          "request": {
+            "headers": { "Content-Type": "application/json" },
+            "body_dto": "cambiarPassDTO",
+            "schema": {
+              "type": "object",
+              "required": ["correo", "new_pass"],
+              "properties": {
+                "correo": { "type": "string", "format": "email" },
+                "new_pass": { "type": "string", "format": "password" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "entregas": {
+      "puerto_interno": 8002,
+      "prefijo": "/entregas",
+      "contratos": [
+        {
+          "endpoint": "/gateway/entregas/entregas-id",
+          "ruta_interna": "/entregas/entregas-id",
+          "metodo": "GET",
+          "request": {
+            "query_dto": "getEntregasDTO",
+            "query_parameters": {
+              "ids_locales": { 
+                "type": "array", 
+                "items": { "type": "integer" }, 
+                "required": true
+              },
+              "hora_peticion": { 
+                "type": "string", 
+                "format": "date-time", 
+                "required": true
+              }
+            }
+          }
+        },
+        {
+          "endpoint": "/gateway/entregas/agregar-entrega",
+          "ruta_interna": "/entregas/agregar-entrega",
+          "metodo": "POST",
+          "request": {
+            "headers": { "Content-Type": "application/json" },
+            "body_dto": "agregarEntregasDTO",
+            "schema": {
+              "type": "object",
+              "required": ["hora_aceptacion", "hora_recogida", "hora_entrega", "monto", "id_local", "app"],
+              "properties": {
+                "hora_aceptacion": { "type": "string", "format": "date-time" },
+                "hora_recogida": { "type": "string", "format": "date-time" },
+                "hora_entrega": { "type": "string", "format": "date-time" },
+                "monto": { "type": "integer" },
+                "id_local": { "type": "integer" },
+                "app": { "type": "string" }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "locales": {
+      "puerto_interno": 8003,
+      "prefijo": "/locales",
+      "contratos": [
+        {
+          "endpoint": "/gateway/locales/consultar-locales",
+          "ruta_interna": "/locales/consultar-locales",
+          "metodo": "GET",
+          "request": {
+            "query_parameters": {
+              "radio": { "type": "number", "format": "float", "required": true },
+              "long": { "type": "number", "format": "float", "required": true },
+              "lat": { "type": "number", "format": "float", "required": true }
+            }
+          }
+        }
+      ]
+    },
+    "rentabilidad": {
+      "puerto_interno": 8001,
+      "prefijo": "/rentabilidad",
+      "contratos": [
+        {
+          "endpoint": "/gateway/rentabilidad/locales",
+          "ruta_interna": "/rentabilidad/locales",
+          "metodo": "GET",
+          "request": {
+            "query_parameters": {
+              "lat": { "type": "number", "format": "float", "required": true },
+              "long": { "type": "number", "format": "float", "required": true },
+              "radio": { "type": "number", "format": "float", "required": true }
+            }
+          }
+        }
+      ]
+    },
+    "reportes": {
+      "puerto_interno": 8004,
+      "prefijo": "/reportes",
+      "contratos": [
+        {
+          "endpoint": "/gateway/reportes/agregar-reporte",
+          "ruta_interna": "/reportes/agregar-reporte",
+          "metodo": "POST",
+          "request": {
+            "headers": { "Content-Type": "application/json" },
+            "body_dto": "agregarReporteDTO",
+            "schema": {
+              "type": "object",
+              "required": ["nombre_local", "direccion", "long", "lat", "titulo_reporte", "descripcion_reporte"],
+              "properties": {
+                "nombre_local": { "type": "string" },
+                "direccion": { "type": "string" },
+                "long": { "type": "number", "format": "float" },
+                "lat": { "type": "number", "format": "float" },
+                "titulo_reporte": { "type": "string" },
+                "descripcion_reporte": { "type": "string" }
+              }
+            }
+          }
+        },
+        {
+          "endpoint": "/gateway/reportes/consultar-reportes",
+          "ruta_interna": "/reportes/consultar-reportes",
+          "metodo": "GET",
+          "request": {
+            "query_parameters": {
+              "lat": { "type": "number", "format": "float", "required": true },
+              "long": { "type": "number", "format": "float", "required": true },
+              "radio": { "type": "number", "format": "float", "required": true }
+            }
+          }
+        },
+        {
+          "endpoint": "/gateway/reportes/agregar-validacion",
+          "ruta_interna": "/reportes/agregar-validacion",
+          "metodo": "POST",
+          "request": {
+            "headers": { "Content-Type": "application/json" },
+            "body_dto": "agregarValidacionDTO",
+            "schema": {
+              "type": "object",
+              "required": ["id_reporte", "valido"],
+              "properties": {
+                "id_reporte": { "type": "integer" },
+                "valido": { "type": "boolean" }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
