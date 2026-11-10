@@ -28,6 +28,16 @@
                 "password": { "type": "string", "format": "password" }
               }
             }
+          },
+          "response": {
+            "status": 200,
+            "schema": {
+              "type": "object",
+              "required": ["message"],
+              "properties": {
+                "message": { "type": "string", "const": "Usuario creado con exito" }
+              }
+            }
           }
         },
         {
@@ -45,6 +55,21 @@
                 "password": { "type": "string", "format": "password" }
               }
             }
+          },
+          "response": {
+            "status": 200,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "integer" },
+                "nombre": { "type": "string" },
+                "apellido": { "type": "string" },
+                "rut": { "type": "string" },
+                "correo": { "type": "string", "format": "email" },
+                "pass_user": { "type": "string" },
+                "creado_en": { "type": "string", "format": "date-time" }
+              }
+            }
           }
         },
         {
@@ -54,6 +79,17 @@
           "request": {
             "query_parameters": {
               "email": { "type": "string", "format": "email", "required": true }
+            }
+          },
+          "response": {
+            "status": 200,
+            "schema": {
+              "type": "object",
+              "required": ["exito", "email"],
+              "properties": {
+                "exito": { "type": "boolean", "const": true },
+                "email": { "type": "string", "format": "email" }
+              }
             }
           }
         },
@@ -70,6 +106,16 @@
               "properties": {
                 "correo": { "type": "string", "format": "email" },
                 "new_pass": { "type": "string", "format": "password" }
+              }
+            }
+          },
+          "response": {
+            "status": 200,
+            "schema": {
+              "type": "object",
+              "required": ["message"],
+              "properties": {
+                "message": { "type": "string", "const": "Contraseña actualizada exitosamente" }
               }
             }
           }
@@ -96,6 +142,32 @@
                 "type": "string", 
                 "format": "date-time", 
                 "required": true
+              },
+              "app": {
+                "type": "string",
+                "default": "",
+                "required": false
+              }
+            }
+          },
+          "response": {
+            "status": 200,
+            "schema": {
+              "type": "object",
+              "required": ["items"],
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["id", "rango_horario", "monto"],
+                    "properties": {
+                      "id": { "type": "integer" },
+                      "rango_horario": { "type": "number" },
+                      "monto": { "type": "integer" }
+                    }
+                  }
+                }
               }
             }
           }
@@ -119,6 +191,16 @@
                 "app": { "type": "string" }
               }
             }
+          },
+          "response": {
+            "status": 200,
+            "schema": {
+              "type": "object",
+              "required": ["message"],
+              "properties": {
+                "message": { "type": "string", "const": "Entrega registrada con exito" }
+              }
+            }
           }
         }
       ]
@@ -137,6 +219,27 @@
               "long": { "type": "number", "format": "float", "required": true },
               "lat": { "type": "number", "format": "float", "required": true }
             }
+          },
+          "response": {
+            "status": 200,
+            "schema": {
+              "type": "object",
+              "required": ["items"],
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["id", "nombre", "direccion"],
+                    "properties": {
+                      "id": { "type": "integer" },
+                      "nombre": { "type": "string" },
+                      "direccion": { "type": ["string", "null"] }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       ]
@@ -153,7 +256,31 @@
             "query_parameters": {
               "lat": { "type": "number", "format": "float", "required": true },
               "long": { "type": "number", "format": "float", "required": true },
-              "radio": { "type": "number", "format": "float", "required": true }
+              "radio": { "type": "number", "format": "float", "required": true },
+              "app": { "type": "string", "default": "", "required": false }
+            }
+          },
+          "response": {
+            "status": 200,
+            "schema": {
+              "type": "object",
+              "required": ["items"],
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["id", "nombre", "direccion", "rentabilidad", "fiable"],
+                    "properties": {
+                      "id": { "type": "integer" },
+                      "nombre": { "type": "string" },
+                      "direccion": { "type": ["string", "null"] },
+                      "rentabilidad": { "type": "number" },
+                      "fiable": { "type": "boolean" }
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -182,6 +309,16 @@
                 "descripcion_reporte": { "type": "string" }
               }
             }
+          },
+          "response": {
+            "status": 200,
+            "schema": {
+              "type": "object",
+              "required": ["message"],
+              "properties": {
+                "message": { "type": "string", "const": "Reporte creado con exito" }
+              }
+            }
           }
         },
         {
@@ -193,6 +330,32 @@
               "lat": { "type": "number", "format": "float", "required": true },
               "long": { "type": "number", "format": "float", "required": true },
               "radio": { "type": "number", "format": "float", "required": true }
+            }
+          },
+          "response": {
+            "status": 200,
+            "schema": {
+              "type": "object",
+              "required": ["items"],
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["id", "nombre_local", "direccion", "titulo_reporte", "descripcion_reporte", "creado_en", "long", "lat"],
+                    "properties": {
+                      "id": { "type": "integer" },
+                      "nombre_local": { "type": "string" },
+                      "direccion": { "type": "string" },
+                      "titulo_reporte": { "type": "string" },
+                      "descripcion_reporte": { "type": ["string", "null"] },
+                      "creado_en": { "type": "string", "format": "date-time" },
+                      "long": { "type": "number" },
+                      "lat": { "type": "number" }
+                    }
+                  }
+                }
+              }
             }
           }
         },
@@ -209,6 +372,16 @@
               "properties": {
                 "id_reporte": { "type": "integer" },
                 "valido": { "type": "boolean" }
+              }
+            }
+          },
+          "response": {
+            "status": 200,
+            "schema": {
+              "type": "object",
+              "required": ["message"],
+              "properties": {
+                "message": { "type": "string", "const": "Validacion agregada con exito" }
               }
             }
           }

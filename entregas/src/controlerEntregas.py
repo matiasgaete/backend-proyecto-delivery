@@ -8,6 +8,7 @@ router = APIRouter(prefix="/entregas")
 class getEntregasDTO(BaseModel):
     ids_locales: list[int] = Field(Query(...))
     hora_peticion: datetime 
+    app: str = Query("")
 
 class agregarEntregasDTO(BaseModel):
     hora_aceptacion: datetime

@@ -1,7 +1,8 @@
 # ==================== ENTREGAS ====================
 
 # GET
-curl "http://localhost:8000/gateway/entregas/entregas-id?ids_locales=1&ids_locales=2&ids_locales=3&hora_peticion=2026-11-30T15:30:00-03:00"
+curl "http://localhost:8000/gateway/entregas/entregas-id?ids_locales=1&ids_locales=2&ids_locales=3&hora_peticion=2026-11-30T15:30:00-03:00&app=Uber%20Eats"
+# app acepta "Uber Eats", "PedidosYa", "Rappi" o "" (sin filtro; tambien puede omitirse).
 
 # POST
 curl -X POST "http://localhost:8000/gateway/entregas/agregar-entrega" \
@@ -12,7 +13,7 @@ curl -X POST "http://localhost:8000/gateway/entregas/agregar-entrega" \
   "hora_entrega": "2026-11-28T16:10:00-03:00",
   "monto": 5990,
   "id_local": 1,
-  "app": "UberEats"
+  "app": "Uber Eats"
 }'
 
 
@@ -25,7 +26,8 @@ curl "http://localhost:8000/gateway/locales/consultar-locales?radio=1500&long=-7
 # ==================== RENTABILIDAD ====================
 
 # GET
-curl "http://localhost:8000/gateway/rentabilidad/locales?lat=-33.4489&long=-70.6693&radio=1500"
+curl "http://localhost:8000/gateway/rentabilidad/locales?lat=-33.4489&long=-70.6693&radio=1500&app=Uber%20Eats"
+# app es opcional; si se omite o se envia vacio, se consultan entregas de todas las aplicaciones.
 
 
 Locales de ejemplo para probar para renatbilidad y locales:
