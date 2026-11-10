@@ -24,7 +24,7 @@ class cambiarPassDTO(BaseModel):
 def crear_usuario_controller(user: crearUsuarioDTO):
     return crear_usuario_service(user)
 
-@router.post("/inicar-sesion")
+@router.post("/iniciar-sesion")
 def iniciar_sesion_controller(credenciales: iniciarSesionDTO):
     return iniciar_sesion_service(credenciales)
 

@@ -1,0 +1,110 @@
+# ==================== ENTREGAS ====================
+
+# GET
+curl "http://localhost:8000/gateway/entregas/entregas-id?ids_locales=1&ids_locales=2&ids_locales=3&hora_peticion=2026-11-30T15:30:00-03:00"
+
+# POST
+curl -X POST "http://localhost:8000/gateway/entregas/agregar-entrega" \
+  -H "Content-Type: application/json" \
+  -d '{
+  "hora_aceptacion": "2026-11-28T15:30:00-03:00",
+  "hora_recogida": "2026-11-28T15:45:00-03:00",
+  "hora_entrega": "2026-11-28T16:10:00-03:00",
+  "monto": 5990,
+  "id_local": 1,
+  "app": "UberEats"
+}'
+
+
+# ==================== LOCALES ====================
+
+# GET
+curl "http://localhost:8000/gateway/locales/consultar-locales?radio=1500&long=-70.6693&lat=-33.4489"
+
+
+# ==================== RENTABILIDAD ====================
+
+# GET
+curl "http://localhost:8000/gateway/rentabilidad/locales?lat=-33.4489&long=-70.6693&radio=1500"
+
+
+Locales de ejemplo para probar para renatbilidad y locales:
+
+Lugar: Plaza de Armas | Latitud: -33.4378 | Longitud: -70.6504
+Lugar: Palacio de La Moneda | Latitud: -33.4429 | Longitud: -70.6539
+Lugar: Cumbre Cerro San Cristóbal | Latitud: -33.4254 | Longitud: -70.6334
+Lugar: Plaza Baquedano | Latitud: -33.4372 | Longitud: -70.6346
+Lugar: Parque Quinta Normal | Latitud: -33.4431 | Longitud: -70.6811
+
+El Radio va en metros
+
+# ==================== REPORTES ====================
+
+# POST
+curl -X POST "http://localhost:8000/gateway/reportes/agregar-reporte" \
+  -H "Content-Type: application/json" \
+  -d '{
+  "nombre_local": "Pizzería Don Mario",
+  "direccion": "Av. Providencia 1234, Santiago",
+  "long": -70.6693,
+  "lat": -33.4489,
+  "titulo_reporte": "Local ya no existe",
+  "descripcion_reporte": "El local aparece en el mapa pero está cerrado definitivamente."
+}'
+
+Entradas permitidas para "titulo_reporte":
+'Local nuevo', 'Local cerrado', 'Local ya no existe'
+
+# GET
+curl "http://localhost:8000/gateway/reportes/consultar-reportes?lat=-33.4489&long=-70.6693&radio=1.5"
+
+# POST
+curl -X POST "http://localhost:8000/gateway/reportes/agregar-validacion" \
+  -H "Content-Type: application/json" \
+  -d '{
+  "id_local": 1,
+  "valido": true
+}'
+
+
+# ==================== USUARIOS ====================
+
+# POST
+curl -X POST "http://localhost:8000/gateway/usuarios/crear-usuario" \
+  -H "Content-Type: application/json" \
+  -d '{
+  "nombre": "Juan",
+  "apellido": "Pérez",
+  "rut": "12345678-9",
+  "correo": "juan.perez@correo.com",
+  "password": "MiClave123"
+}'
+
+# POST
+curl -X POST "http://localhost:8000/gateway/usuarios/iniciar-sesion" \
+  -H "Content-Type: application/json" \
+  -d '{
+  "correo": "juan.perez@correo.com",
+  "password": "MiClave123"
+}'
+
+# GET
+curl "http://localhost:8000/gateway/usuarios/solicitar-cambio?email=juan.perez@correo.com"
+
+actualemtne solo funciona con mi correo personal, en caso de quere probar
+otro correo dbe resigstrase en resend y usar api_key propia
+
+# PUT
+curl -X PUT "http://localhost:8000/gateway/usuarios/cambiar-pass" \
+  -H "Content-Type: application/json" \
+  -d '{
+  "correo": "juan.perez@correo.com",
+  "new_pass": "NuevaClave456"
+}'
+
+
+FORMATO TIEMPO:
+2026-11-10T15:30:00-03:00
+
+FORMATO LISTA:
+?ids_locales=1&ids_locales=2&ids_locales=3

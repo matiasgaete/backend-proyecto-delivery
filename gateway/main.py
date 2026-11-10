@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request, Response
 import httpx
 
-app = FastAPI(title="API Gateway")
+app = FastAPI()
 
 # 1. Tabla de puertos internos de tu arquitectura
 SERVICIOS = {
@@ -12,18 +12,26 @@ SERVICIOS = {
     "usuarios":     "http://127.0.0.1:8005",
 }
 
-@app.api_route("/api/v1/{servicio}/{ruta_interna:path}", methods=["GET", "POST", "PUT", "DELETE"])
-async def reenviar_peticion(servicio: str, ruta_interna: str, request: Request, body:dict):
+HEADERS_IGNORADOS_REQUEST = {"host", "content-length", "connection"}
+HEADERS_IGNORADOS_RESPONSE = {"content-length", "content-encoding", "transfer-encoding", "connection"}
+
+@app.api_route("/gateway/{servicio}/{ruta_interna:path}", methods=["GET", "POST", "PUT", "DELETE"])
+async def reenviar_peticion(servicio: str, ruta_interna: str, request: Request):
     if servicio not in SERVICIOS:
         return Response(content='{"error": "Servicio no encontrado"}', status_code=404)
     
     url_destino = f"{SERVICIOS[servicio]}/{servicio}/{ruta_interna}"
 
+    headers = {
+        k: v for k, v in request.headers.items()
+        if k.lower() not in HEADERS_IGNORADOS_REQUEST
+    }
+
     async with httpx.AsyncClient() as client:
         respuesta = await client.request(
             method=request.method,
             url=url_destino,
-            params=dict(request.query_params),
+            params=request.query_params.multi_items(),
             content=await request.body(),
             headers=dict(request.headers)
         )

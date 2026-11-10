@@ -42,7 +42,6 @@ def solicitar_cambio_service(email):
             detail="Usuario no encontrado"
         )
     else:
-        # Configurar remitente (usando contraseña de aplicación de Gmail/Outlook)
         resend.api_key = "re_f2fzgdN7_8yNha8T6Uf1cB9t2KVZAa4zh"
 
         r = resend.Emails.send({

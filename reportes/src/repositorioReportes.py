@@ -37,7 +37,7 @@ def agregar_reporte_repo(reporte):
 def agregar_validacion_repo(validacion):
     with config() as session:
         nueva_validacion = Validacion(
-            id_reporte=validacion.id_local,
+            id_reporte=validacion.id_reporte,
             valido=validacion.valido,
         )
         session.add(nueva_validacion)

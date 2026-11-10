@@ -16,7 +16,7 @@ class agregarReporteDTO(BaseModel):
 
 
 class agregarValidacionDTO(BaseModel):
-    id_local: int
+    id_reporte: int
     valido: bool
 
 
