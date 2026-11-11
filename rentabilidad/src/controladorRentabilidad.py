@@ -1,6 +1,5 @@
 from fastapi import APIRouter
 import serviceRentabilidad as sR
-from pydantic import BaseModel
 
 
 router = APIRouter(prefix="/rentabilidad")

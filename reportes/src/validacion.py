@@ -1,5 +1,5 @@
 from sqlalchemy import Boolean, ForeignKey, Integer
-from sqlalchemy.orm import DeclarativeBase, mapped_column
+from sqlalchemy.orm import mapped_column
 from bd import Base
 
 class Validacion(Base):

@@ -1,4 +1,3 @@
-import httpx
 import clienteEntregas as clE
 import clienteLocales as clL
 from rentabilidades import *

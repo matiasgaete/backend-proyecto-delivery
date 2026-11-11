@@ -1,6 +1,5 @@
 from fastapi import FastAPI
-from controlerEntregas import *
-import uvicorn
+from controlerEntregas import router
 
 
 app = FastAPI()
