@@ -24,6 +24,8 @@ async def calcular_rentabilidad_service(lat, long, radio, app):
     for local in items_locales:
         local_id = local["id"]
         datos = acumulado[local_id]
+        if datos["cantidad"] == 0:
+            continue
         
         rentabilidad = (datos["monto"] / datos["horas"]) if datos["horas"] > 0 else 0.0
         

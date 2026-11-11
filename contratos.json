@@ -1,5 +1,36 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "fastapiValidationError": {
+      "type": "object",
+      "required": ["detail"],
+      "properties": {
+        "detail": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["loc", "msg", "type"],
+            "properties": {
+              "loc": {
+                "type": "array",
+                "items": { "type": ["string", "integer"] }
+              },
+              "msg": { "type": "string" },
+              "type": { "type": "string" }
+            },
+            "additionalProperties": true
+          }
+        }
+      }
+    },
+    "httpError": {
+      "type": "object",
+      "required": ["detail"],
+      "properties": {
+        "detail": { "type": "string" }
+      }
+    }
+  },
   "info": {
     "title": "Especificación Oficial de Contratos JSON - Sistema Delivery",
     "version": "1.0.0",
@@ -38,7 +69,19 @@
                 "message": { "type": "string", "const": "Usuario creado con exito" }
               }
             }
-          }
+          },
+          "error_responses": [
+            {
+              "status": 409,
+              "description": "El usuario ya se encuentra registrado",
+              "schema": { "$ref": "#/$defs/httpError" }
+            },
+            {
+              "status": 422,
+              "description": "Los datos del cuerpo no cumplen el formato esperado",
+              "schema": { "$ref": "#/$defs/fastapiValidationError" }
+            }
+          ]
         },
         {
           "endpoint": "/gateway/usuarios/iniciar-sesion",
@@ -70,7 +113,19 @@
                 "creado_en": { "type": "string", "format": "date-time" }
               }
             }
-          }
+          },
+          "error_responses": [
+            {
+              "status": 401,
+              "description": "Credenciales incorrectas",
+              "schema": { "$ref": "#/$defs/httpError" }
+            },
+            {
+              "status": 422,
+              "description": "Los datos del cuerpo no cumplen el formato esperado",
+              "schema": { "$ref": "#/$defs/fastapiValidationError" }
+            }
+          ]
         },
         {
           "endpoint": "/gateway/usuarios/solicitar-cambio",
@@ -91,7 +146,19 @@
                 "email": { "type": "string", "format": "email" }
               }
             }
-          }
+          },
+          "error_responses": [
+            {
+              "status": 404,
+              "description": "Usuario no encontrado",
+              "schema": { "$ref": "#/$defs/httpError" }
+            },
+            {
+              "status": 422,
+              "description": "El correo no tiene un formato valido o falta el parametro",
+              "schema": { "$ref": "#/$defs/fastapiValidationError" }
+            }
+          ]
         },
         {
           "endpoint": "/gateway/usuarios/cambiar-pass",
@@ -118,7 +185,19 @@
                 "message": { "type": "string", "const": "Contraseña actualizada exitosamente" }
               }
             }
-          }
+          },
+          "error_responses": [
+            {
+              "status": 404,
+              "description": "Usuario no encontrado",
+              "schema": { "$ref": "#/$defs/httpError" }
+            },
+            {
+              "status": 422,
+              "description": "Los datos del cuerpo no cumplen el formato esperado",
+              "schema": { "$ref": "#/$defs/fastapiValidationError" }
+            }
+          ]
         }
       ]
     },
@@ -170,7 +249,14 @@
                 }
               }
             }
-          }
+          },
+          "error_responses": [
+            {
+              "status": 422,
+              "description": "Falta un parametro requerido o tiene un formato invalido",
+              "schema": { "$ref": "#/$defs/fastapiValidationError" }
+            }
+          ]
         },
         {
           "endpoint": "/gateway/entregas/agregar-entrega",
@@ -201,7 +287,19 @@
                 "message": { "type": "string", "const": "Entrega registrada con exito" }
               }
             }
-          }
+          },
+          "error_responses": [
+            {
+              "status": 500,
+              "description": "Error al registrar la entrega",
+              "schema": { "$ref": "#/$defs/httpError" }
+            },
+            {
+              "status": 422,
+              "description": "Los datos del cuerpo no cumplen el formato esperado",
+              "schema": { "$ref": "#/$defs/fastapiValidationError" }
+            }
+          ]
         }
       ]
     },
@@ -240,7 +338,14 @@
                 }
               }
             }
-          }
+          },
+          "error_responses": [
+            {
+              "status": 422,
+              "description": "Falta un parametro requerido o tiene un formato invalido",
+              "schema": { "$ref": "#/$defs/fastapiValidationError" }
+            }
+          ]
         }
       ]
     },
@@ -282,7 +387,14 @@
                 }
               }
             }
-          }
+          },
+          "error_responses": [
+            {
+              "status": 422,
+              "description": "Falta un parametro requerido o tiene un formato invalido",
+              "schema": { "$ref": "#/$defs/fastapiValidationError" }
+            }
+          ]
         }
       ]
     },
@@ -319,7 +431,19 @@
                 "message": { "type": "string", "const": "Reporte creado con exito" }
               }
             }
-          }
+          },
+          "error_responses": [
+            {
+              "status": 400,
+              "description": "Error en el formato de entrada",
+              "schema": { "$ref": "#/$defs/httpError" }
+            },
+            {
+              "status": 422,
+              "description": "Los datos del cuerpo no cumplen el formato esperado",
+              "schema": { "$ref": "#/$defs/fastapiValidationError" }
+            }
+          ]
         },
         {
           "endpoint": "/gateway/reportes/consultar-reportes",
@@ -357,7 +481,14 @@
                 }
               }
             }
-          }
+          },
+          "error_responses": [
+            {
+              "status": 422,
+              "description": "Falta un parametro requerido o tiene un formato invalido",
+              "schema": { "$ref": "#/$defs/fastapiValidationError" }
+            }
+          ]
         },
         {
           "endpoint": "/gateway/reportes/agregar-validacion",
@@ -384,7 +515,19 @@
                 "message": { "type": "string", "const": "Validacion agregada con exito" }
               }
             }
-          }
+          },
+          "error_responses": [
+            {
+              "status": 404,
+              "description": "Reporte no existente",
+              "schema": { "$ref": "#/$defs/httpError" }
+            },
+            {
+              "status": 422,
+              "description": "Los datos del cuerpo no cumplen el formato esperado",
+              "schema": { "$ref": "#/$defs/fastapiValidationError" }
+            }
+          ]
         }
       ]
     }

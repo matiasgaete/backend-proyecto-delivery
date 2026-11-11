@@ -5,15 +5,15 @@ from datetime import timedelta
 
 def get_entregas_repo(condiciones):
     with config() as session:
-        margen = timedelta(minutes=15)
+        margen = timedelta(minutes=30)
         limite_inferior = condiciones.hora_peticion - margen
-        limite_superior = condiciones.hora_peticion + margen
+        limite_superior = condiciones.hora_peticion
 
         query = select(Entrega).where(
             and_(
                 Entrega.id_local.in_(condiciones.ids_locales),
-                Entrega.hora_recogida >= limite_inferior,
-                Entrega.hora_recogida <= limite_superior,
+                Entrega.hora_entrega >= limite_inferior,
+                Entrega.hora_entrega <= limite_superior,
                 or_(
                     condiciones.app == "",
                     Entrega.app == condiciones.app
