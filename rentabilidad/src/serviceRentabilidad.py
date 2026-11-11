@@ -11,11 +11,12 @@ async def calcular_rentabilidad_service(lat, long, radio, app):
     id_locales = [local["id"] for local in items_locales]
     entregas = await clE.consultar_entregas(id_locales, app)
 
-    acumulado = defaultdict(lambda: {"monto": 0.0, "horas": 0.0, "cantidad": 0})
+    acumulado = defaultdict(lambda: {"rentabilidad_sum": 0.0, "cantidad": 0})
     for item in entregas.get("items", []):
         local_id = item["id"]
-        acumulado[local_id]["monto"] += item["monto"]
-        acumulado[local_id]["horas"] += item["rango_horario"]
+        if item["rango_horario"] == 0:
+            continue
+        acumulado[local_id]["rentabilidad_sum"] += item["monto"] / item["rango_horario"]
         acumulado[local_id]["cantidad"] += 1
 
     items_resultado = []
@@ -25,7 +26,7 @@ async def calcular_rentabilidad_service(lat, long, radio, app):
         if datos["cantidad"] == 0:
             continue
         
-        rentabilidad = (datos["monto"] / datos["horas"]) if datos["horas"] > 0 else 0.0
+        rentabilidad = (datos["rentabilidad_sum"] / datos["cantidad"])
         
         item_nuevo = local.copy()
         item_nuevo["rentabilidad"] = rentabilidad
