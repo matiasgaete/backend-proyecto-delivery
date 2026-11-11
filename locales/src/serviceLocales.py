@@ -10,9 +10,9 @@ def consultar_locales_service(radio, long, lat):
         direccion = local.direccion
         resultados_json["items"].append(
             {
-                "id": local.id,
-                "nombre": local.nombre,
-                "direccion": local.direccion 
+                "id": id,
+                "nombre": nombre,
+                "direccion": direccion 
             }
         )
     return resultados_json
