@@ -1,6 +1,5 @@
 import clienteEntregas as clE
 import clienteLocales as clL
-from rentabilidades import *
 from collections import defaultdict
 
 async def calcular_rentabilidad_service(lat, long, radio, app):
