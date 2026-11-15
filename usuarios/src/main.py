@@ -1,4 +1,3 @@
-from bd import config
 from fastapi import FastAPI
 from controladorUsuario import router
 

@@ -42,13 +42,13 @@ def solicitar_cambio_service(email):
             detail="Usuario no encontrado"
         )
     else:
-        resend.api_key = "re_f2fzgdN7_8yNha8T6Uf1cB9t2KVZAa4zh"
+        resend.api_key = ""
 
         r = resend.Emails.send({
         "from": "onboarding@resend.dev",
         "to": f"{resultado.correo}",
         "subject": "Restablecer contraseña",
-        "html": "<p>Haz clic <a href='http://127.0.0.1:8000/docs#/default/cambiar_pass_controler_usuarios_cambiar_pass_put'>aquí</a> para cambiar tu clave.</p>"
+        "html": "<p>Haz clic <a href='http://127.0.0.1:8005/docs#/default/cambiar_pass_controler_usuarios_cambiar_pass_put'>aquí</a> para cambiar tu clave.</p>"
         })
 
         return {"exito": True, "email": resultado.correo}

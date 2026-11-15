@@ -1,9 +1,9 @@
-from bd import config
+from bd import conf
 from usuario import Usuario
 from sqlalchemy import select, and_, update
 
 def crear_usuario_repo(user):
-    with config() as session:
+    with conf() as session:
         # Usuario(nombre_atributo_clase1="valor", nombre_atributo_clase2="valor")
         nuevo_usuario = Usuario(nombre=user.nombre,
                                 apellido=user.apellido,
@@ -16,7 +16,7 @@ def crear_usuario_repo(user):
     return
 
 def inicar_sesion_repo(credenciales):
-    with config() as session:
+    with conf() as session:
         query = select(Usuario).where(
             and_(
                 credenciales.correo == Usuario.correo,
@@ -27,7 +27,7 @@ def inicar_sesion_repo(credenciales):
         return resultado.one_or_none()
 
 def cambiar_pass_repo(credenciales):
-    with config() as session:
+    with conf() as session:
         query = (
             update(Usuario)
             .where(credenciales.correo == Usuario.correo)
@@ -43,7 +43,7 @@ def cambiar_pass_repo(credenciales):
         return True
 
 def solicitar_cambio_repo(email):
-    with config() as session:
+    with conf() as session:
         query = select(Usuario).where(
             Usuario.correo == email
             )
