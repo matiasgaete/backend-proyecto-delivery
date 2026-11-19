@@ -26,7 +26,8 @@ def crear_usuario_controller(user: crearUsuarioDTO):
 
 @router.post("/iniciar-sesion")
 def iniciar_sesion_controller(credenciales: iniciarSesionDTO):
-    return iniciar_sesion_service(credenciales)
+    resultado = iniciar_sesion_service(credenciales)
+    return resultado
 
 @router.get("/solicitar-cambio")
 def solicitar_cambio_controller(email: EmailStr):
