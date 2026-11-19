@@ -10,6 +10,7 @@ SERVICIOS = {
     "locales":      "http://127.0.0.1:8003",
     "reportes":     "http://127.0.0.1:8004",
     "usuarios":     "http://127.0.0.1:8005",
+    "auth":         "http://127.0.0.1:8006"
 }
 
 HEADERS_IGNORADOS_REQUEST = {"host", "content-length", "connection"}
