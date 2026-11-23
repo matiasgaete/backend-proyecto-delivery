@@ -2,8 +2,12 @@ from fastapi import APIRouter, Depends, Query
 from datetime import datetime
 from pydantic import BaseModel, Field
 from serviceEntregas import *
+from security import validar_token
 
-router = APIRouter(prefix="/entregas")
+router = APIRouter(
+    prefix="/entregas",
+    dependencies=[Depends(validar_token)]
+    )
 
 class getEntregasDTO(BaseModel):
     ids_locales: list[int] = Field(Query(...))

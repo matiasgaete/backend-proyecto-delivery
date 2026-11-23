@@ -2,14 +2,14 @@ import clienteEntregas as clE
 import clienteLocales as clL
 from collections import defaultdict
 
-async def calcular_rentabilidad_service(lat, long, radio, app):
-    locales = await clL.consultar_locales(lat, long, radio)
+async def calcular_rentabilidad_service(lat, long, radio, app, token):
+    locales = await clL.consultar_locales(lat, long, radio, token)
     items_locales = locales.get("items", [])
     if not items_locales:
         return locales
 
     id_locales = [local["id"] for local in items_locales]
-    entregas = await clE.consultar_entregas(id_locales, app)
+    entregas = await clE.consultar_entregas(id_locales, app, token)
 
     acumulado = defaultdict(lambda: {"rentabilidad_sum": 0.0, "cantidad": 0})
     for item in entregas.get("items", []):
