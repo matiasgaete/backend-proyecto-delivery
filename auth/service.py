@@ -16,14 +16,15 @@ async def service_validar_credenciales(credenciales):
         hora_peticion = datetime.now(timezone.utc)
         duracion = timedelta(minutes=15)
 
-        payload = {"sub": f"{usuario["id"]}",
-                   "exp": hora_peticion + duracion,
-                   "iat":"hora_peticion",
-                   "nombre": usuario["nombre"],
-                   "apellido": usuario["apellido"],
-                   "rut": usuario["rut"],
-                   "correo": usuario["correo"]
-                   }
+        payload = {
+            "sub": f"{usuario["id"]}",
+            "exp": hora_peticion + duracion,
+            "iat":hora_peticion,
+            "nombre": usuario["nombre"],
+            "apellido": usuario["apellido"],
+            "rut": usuario["rut"],
+            "correo": usuario["correo"]
+            }
         
         with open("private_key.pem", "rb") as file:
             private_key = file.read()

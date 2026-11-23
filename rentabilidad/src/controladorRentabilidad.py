@@ -1,9 +1,18 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 import serviceRentabilidad as sR
+from security import validar_token
 
 
-router = APIRouter(prefix="/rentabilidad")
+router = APIRouter(
+    prefix="/rentabilidad"
+    )
 
 @router.get("/locales")
-async def calcular_rentabilidad_controller(lat: float, long: float, radio: float, app: str = ""):
-    return await sR.calcular_rentabilidad_service(lat, long, radio, app)
+async def calcular_rentabilidad_controller(
+    lat: float, 
+    long: float, 
+    radio: float, 
+    app: str = "",
+    token: dict = Depends(validar_token)
+    ):
+    return await sR.calcular_rentabilidad_service(lat, long, radio, app, token)

@@ -1,9 +1,13 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 from serviceReportes import *
+from security import validar_token
 
 
-router = APIRouter(prefix="/reportes")
+router = APIRouter(
+    prefix="/reportes",
+    dependencies=[Depends(validar_token)]
+    )
 
 
 class agregarReporteDTO(BaseModel):

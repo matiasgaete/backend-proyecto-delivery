@@ -1,8 +1,11 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel, EmailStr
 from servicioUsuario import *
+from security import validar_token
 
-router = APIRouter(prefix="/usuarios")
+router = APIRouter(
+    prefix="/usuarios"
+    )
 
 class crearUsuarioDTO(BaseModel):
     nombre: str
@@ -14,7 +17,6 @@ class crearUsuarioDTO(BaseModel):
 class iniciarSesionDTO(BaseModel):
     correo: EmailStr
     password: str
-
 
 class cambiarPassDTO(BaseModel):
     correo: EmailStr
