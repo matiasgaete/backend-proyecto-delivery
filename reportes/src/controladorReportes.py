@@ -26,6 +26,7 @@ class agregarValidacionDTO(BaseModel):
 
 @router.post("/agregar-reporte")
 def agregar_reporte_controler(reporte: agregarReporteDTO):
+    print(reporte)
     return agregar_reporte_service(reporte)
 
 

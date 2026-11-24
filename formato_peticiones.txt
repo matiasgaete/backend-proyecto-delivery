@@ -7,7 +7,7 @@ curl "http://localhost:8000/gateway/entregas/entregas-id?ids_locales=1&ids_local
 # POST
 curl -X POST "http://localhost:8000/gateway/entregas/agregar-entrega" \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer TU_TOKEN_JWT_AQUI" \
+  -H "Authorization: Bearer eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNCIsImV4cCI6MTc5NTQ4OTkxOCwiaWF0IjoxNzk1NDg5MDE4LCJub21icmUiOiJKdWFuIiwiYXBlbGxpZG8iOiJQXHUwMGU5cmV6IiwicnV0IjoiMTIzNDU2NzgtOSIsImNvcnJlbyI6Imp1YW4ucGVyZXpAY29ycmVvLmNvbSJ9.PVFSl9CsMy7q6c1K2hcbeDafnz-z8wV9qSX0UCw2fS35g2j1QRkghfBx0L9YBjRqbjwCVW0EHuqLKCb1EshRsA" \
   -d '{
   "hora_aceptacion": "2026-11-28T15:30:00-03:00",
   "hora_recogida": "2026-11-28T15:45:00-03:00",

@@ -26,7 +26,7 @@ async def calcular_rentabilidad_service(lat, long, radio, app, token):
         if datos["cantidad"] == 0:
             continue
         
-        rentabilidad = (datos["rentabilidad_sum"] / datos["cantidad"])
+        rentabilidad = round((datos["rentabilidad_sum"] / datos["cantidad"]), 2)
         
         item_nuevo = local.copy()
         item_nuevo["rentabilidad"] = rentabilidad
