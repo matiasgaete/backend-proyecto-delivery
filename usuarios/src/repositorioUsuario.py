@@ -1,6 +1,16 @@
 from bd import conf
 from usuario import Usuario
-from sqlalchemy import select, and_, update
+from sqlalchemy import select, and_, update, func
+
+def consultar_id_repo(id):
+    with conf() as session:
+        query = select(Usuario).where(
+            and_(
+                id == Usuario.id
+                )
+            )
+        resultado = session.scalars(query)
+        return resultado.one_or_none()
 
 def crear_usuario_repo(user):
     with conf() as session:
@@ -26,21 +36,45 @@ def inicar_sesion_repo(credenciales):
         resultado = session.scalars(query)
         return resultado.one_or_none()
 
-def cambiar_pass_repo(credenciales):
+def guardar_token_restablecimiento_repo(email, token_hash, expires_at):
     with conf() as session:
-        query = (
+        result = session.execute(
             update(Usuario)
-            .where(credenciales.correo == Usuario.correo)
-            .values(pass_user=credenciales.new_pass)
+            .where(Usuario.correo == email)
+            .values(
+                reset_token_hash=token_hash,
+                reset_token_expires_at=expires_at,
             )
-
-        result = session.execute(query)
+        )
         session.commit()
+        return result.rowcount > 0
 
-        if result.rowcount == 0:
-            return False  # O lanzar una excepción personalizada (ej. UsuarioNoEncontradoError)
-            
-        return True
+def cambiar_pass_repo(email, token_hash, new_pass):
+    with conf() as session:
+        result = session.execute(
+            update(Usuario)
+            .where(
+                Usuario.correo == email,
+                Usuario.reset_token_hash == token_hash,
+                Usuario.reset_token_expires_at > func.now(),
+            )
+            .values(
+                pass_user=new_pass,
+                reset_token_hash=None,
+                reset_token_expires_at=None,
+            )
+        )
+        session.commit()
+        return result.rowcount > 0
+
+def invalidar_token_restablecimiento_repo(token_hash):
+    with conf() as session:
+        session.execute(
+            update(Usuario)
+            .where(Usuario.reset_token_hash == token_hash)
+            .values(reset_token_hash=None, reset_token_expires_at=None)
+        )
+        session.commit()
 
 def solicitar_cambio_repo(email):
     with conf() as session:

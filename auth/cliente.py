@@ -11,3 +11,12 @@ async def consultar_credenciales(credenciales):
             }
         )
         return respuesta
+
+
+async def consultar_id(id):
+    async with httpx.AsyncClient() as client:
+        respuesta = await client.get(
+            "http://127.0.0.1:8005/usuarios/consultar-id",
+            params={"id": id}
+        )
+        return respuesta

@@ -16,4 +16,5 @@ class Usuario(Base):
     correo = mapped_column(String(150), unique=True, nullable=False)
     pass_user = mapped_column(String(255), nullable=False)
     creado_en = mapped_column(DateTime, server_default=func.now())
-        
+    reset_token_hash = mapped_column(String(64), nullable=True)
+    reset_token_expires_at = mapped_column(DateTime(timezone=True), nullable=True)

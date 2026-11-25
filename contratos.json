@@ -140,17 +140,17 @@
             "status": 200,
             "schema": {
               "type": "object",
-              "required": ["exito", "email"],
+              "required": ["exito", "message"],
               "properties": {
                 "exito": { "type": "boolean", "const": true },
-                "email": { "type": "string", "format": "email" }
+                "message": { "type": "string" }
               }
             }
           },
           "error_responses": [
             {
-              "status": 404,
-              "description": "Usuario no encontrado",
+              "status": 502,
+              "description": "No se pudo enviar el correo de restablecimiento",
               "schema": { "$ref": "#/$defs/httpError" }
             },
             {
@@ -169,9 +169,10 @@
             "body_dto": "cambiarPassDTO",
             "schema": {
               "type": "object",
-              "required": ["correo", "new_pass"],
+              "required": ["correo", "token", "new_pass"],
               "properties": {
                 "correo": { "type": "string", "format": "email" },
+                "token": { "type": "string" },
                 "new_pass": { "type": "string", "format": "password" }
               }
             }
@@ -188,8 +189,8 @@
           },
           "error_responses": [
             {
-              "status": 404,
-              "description": "Usuario no encontrado",
+              "status": 400,
+              "description": "Token inválido o expirado",
               "schema": { "$ref": "#/$defs/httpError" }
             },
             {

@@ -94,14 +94,14 @@ curl -X POST "http://localhost:8000/gateway/usuarios/iniciar-sesion" \
 # GET
 curl "http://localhost:8000/gateway/usuarios/solicitar-cambio?email=juan.perez@correo.com"
 
-actualemtne solo funciona con mi correo personal, en caso de quere probar
-otro correo dbe resigstrase en resend y usar api_key propia
+Configura `API_KEY` en `usuarios/.env` con una clave valida de Resend.
 
 # PUT
 curl -X PUT "http://localhost:8000/gateway/usuarios/cambiar-pass" \
   -H "Content-Type: application/json" \
   -d '{
   "correo": "juan.perez@correo.com",
+  "token": "token_recibido_por_correo",
   "new_pass": "NuevaClave456"
 }'
 

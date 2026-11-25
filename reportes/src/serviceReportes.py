@@ -38,10 +38,7 @@ def consultar_reportes_service(lat, long, radio):
                 "nombre_local": reporte.nombre_local,
                 "direccion": reporte.direccion,
                 "titulo_reporte": reporte.titulo_reporte,
-                "descripcion_reporte": reporte.descripcion_reporte,
-                "creado_en": reporte.creado_en,
-                "long": punto.x,
-                "lat": punto.y
+                "descripcion_reporte": reporte.descripcion_reporte
             }
         )
     return resultados_json

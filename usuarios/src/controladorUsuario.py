@@ -20,6 +20,7 @@ class iniciarSesionDTO(BaseModel):
 
 class cambiarPassDTO(BaseModel):
     correo: EmailStr
+    token: str
     new_pass: str
 
 @router.post("/crear-usuario")
@@ -30,6 +31,10 @@ def crear_usuario_controller(user: crearUsuarioDTO):
 def iniciar_sesion_controller(credenciales: iniciarSesionDTO):
     resultado = iniciar_sesion_service(credenciales)
     return resultado
+
+@router.get("/consultar-id")
+def consultar_id_controller(id: int):
+    return consultar_id_service(id)
 
 @router.get("/solicitar-cambio")
 def solicitar_cambio_controller(email: EmailStr):
