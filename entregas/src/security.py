@@ -16,7 +16,6 @@ def validar_token(credenciales: HTTPAuthorizationCredentials = Depends(bearer_sc
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="El token ha expirado"
-            # agregar headers
         )
     except jwt.InvalidTokenError:
         raise HTTPException(

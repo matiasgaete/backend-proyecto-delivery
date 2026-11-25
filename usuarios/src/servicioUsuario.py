@@ -32,7 +32,6 @@ def crear_usuario_service(user):
 
 def iniciar_sesion_service(credenciales):
     resultado = rpU.inicar_sesion_repo(credenciales)
-    print(resultado)
     if resultado is None:
             raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
