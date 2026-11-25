@@ -8,7 +8,7 @@ async def consultar_entregas(ids, app, token):
             "http://localhost:8002/entregas/entregas-id",
             params={
                 "ids_locales": ids,
-                "hora_peticion": "2026-11-30T13:30:00-03:00",
+                "hora_peticion": "2026-11-25T14:02:00-03:00",
                 "app": app
             },
             headers={"Authorization": f"Bearer {token}"}
