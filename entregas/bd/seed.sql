@@ -2,6 +2,7 @@ INSERT INTO entregas (hora_aceptacion, hora_recogida, hora_entrega, monto, id_lo
 WITH base AS (
     SELECT
         l.id_local,
+        g.n AS n,
         random() AS r_tipo,
         random() AS r_unif,
         sqrt(-2 * ln(1 - random())) * cos(2 * pi() * random()) AS z,
@@ -25,8 +26,8 @@ t AS (
 ),
 f AS (
     SELECT *,
-        (TIMESTAMP '2026-11-30 00:00:00' AT TIME ZONE 'America/Santiago')
-            + make_interval(secs => min_acept * 60) AS acept
+        (TIMESTAMP '2026-11-27 00:00:00' AT TIME ZONE 'America/Santiago')
+            + make_interval(days => (n - 1) % 6, secs => min_acept * 60) AS acept
     FROM t
 )
 SELECT

@@ -27,7 +27,7 @@ curl "http://localhost:8000/gateway/locales/consultar-locales?radio=1500&long=-7
 # ==================== RENTABILIDAD ====================
 
 # GET
-curl "http://localhost:8000/gateway/rentabilidad/locales?lat=-33.4489&long=-70.6693&radio=1500&app=Uber%20Eats"
+curl "http://localhost:8000/gateway/rentabilidad/locales?lat=-33.4489&long=-70.6693&radio=1500&hora_peticion=2026-11-30T15:30:00-03:00&app=Uber%20Eats"
 # app es opcional; si se omite o se envia vacio, se consultan entregas de todas las aplicaciones.
 
 
